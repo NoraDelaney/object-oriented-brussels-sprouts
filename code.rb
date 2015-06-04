@@ -1,59 +1,15 @@
 #YOUR CODE GOES HERE
-class Ingredient
-  def initialize(quantity, unit, name)
-    @quantity = quantity
-    @unit = unit
-    @name = name
-  end
-
-  def summary
-    <<-SUMMARY
-#{@quantity} #{@unit} #{@name}
-    SUMMARY
-  end
-end
-
-class Recipe
-  def initialize(name, instructions, ingredients)
-    @name = name
-    @instructions = instructions
-    @ingredients = ingredients
-  end
-
-  def ingredients_list
-    string = ""
-    @ingredients.each do |ingredient|
-      string += "- #{ingredient.summary}\n"
-    end
-    string
-  end
-
-  def instruction_list
-    string = ""
-    @instructions.each_with_index.map do |instruction, i|
-    string += "#{i+1}. #{instruction}\n"
-  end
-  string
-end
-
-
-  def summary
-   %(Name: #{@name}
-
-   Ingredients
-  #{ingredients_list}
-
-   Instructions
- #{instruction_list})
-
-  end
-end
+require 'pry'
+require_relative 'ingredient'
+require_relative 'recipe'
 
 
 
   ingredient = Ingredient.new(47.0, "lb(s)", "Brussels Sprouts")
 
-  puts ingredient.summary
+puts ingredient.valid?
+
+# puts ingredient.summary
 
   recipe = Recipe.new("Roasted Brussels Sprouts", [
       "Preheat oven to 400 degrees F.",
@@ -71,7 +27,7 @@ end
       Ingredient.new(0.75, "tspn(s)", "Kosher salt"),
       Ingredient.new(0.5, "tspn(s)", "Freshly ground black pepper")])
 
-  puts recipe.summary
+#  puts recipe.summary
 
   new_recipe = Recipe.new("Braised Short Rib", ["Chop up onions, set aside.",
     "Chop up celery.", "Clean and chop mushrooms.", "Season short rib.",
@@ -86,4 +42,17 @@ end
     Ingredient.new(0.75, "tspn(s)", "Short rib seasoning"),
     Ingredient.new(0.5, "tspn(s)", "Freshly ground black pepper")])
 
-  puts new_recipe.summary
+    weird_recipe = Recipe.new("Just drinking", ["Drink wine.", "Drink whiskey.", "Drink beer."],
+    [Ingredient.new(2, "bottle", "beer"),
+    Ingredient.new(2, "bottle", "wine"),
+    Ingredient.new(4, "bottle", "whiskey")])
+
+# puts new_recipe.summary
+
+puts new_recipe.safe_to_eat
+
+puts weird_recipe.safe_to_eat
+
+carrots = Ingredient.parse("4 pounds brussels sprouts")
+
+puts carrots.summary
